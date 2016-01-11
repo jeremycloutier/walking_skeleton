@@ -1,6 +1,7 @@
 var express = require('express');
-var router = express.Router();
 var mongoose = require('mongoose');
+var path = require('path');
+var router = express.Router();
 
 mongoose.connect('mongodb://localhost/basic_walking_skeleton');
 
@@ -15,6 +16,7 @@ router.post('/add', function(request, response, next){
 
     });
 });
+
 router.get('/cats', function(request, response, next){
     return Cat.find({}).exec(function(err, cats){
         if(err) throw new Error(err);
@@ -22,8 +24,6 @@ router.get('/cats', function(request, response, next){
         next();
     });
 });
-
-var path = require('path');
 
 router.get('/', function(req,res,next){
     res.sendFile(path.join(__dirname, '../public/views/index.html'));
